@@ -1,0 +1,43 @@
+name: Build
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Compile Linux
+        id: compileLinux
+        uses: rust-build/rust-build.action@v1.4.5
+        with:
+          RUSTTARGET: x86_64-unknown-linux-musl
+          UPLOAD_MODE: none
+      - uses: actions/checkout@master
+      - name: Compile Windows
+        id: compileWin
+        uses: rust-build/rust-build.action@v1.4.5
+        with:
+          RUSTTARGET: x86_64-pc-windows-gnu
+          UPLOAD_MODE: none
+      - uses: actions/checkout@master
+      - name: Compile MacOS
+        id: compileDarwin
+        uses: rust-build/rust-build.action@v1.4.5
+        with:
+          RUSTTARGET: x86_64-apple-darwin
+          UPLOAD_MODE: none
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: Binary
+          path: |
+            ${{ steps.compileLinux.outputs.BUILT_ARCHIVE }}
+            ${{ steps.compileLinux.outputs.BUILT_CHECKSUM }}
+            ${{ steps.compileWin.outputs.BUILT_ARCHIVE }}
+            ${{ steps.compileWin.outputs.BUILT_CHECKSUM }}
+            ${{ steps.compileDarwin.outputs.BUILT_ARCHIVE }}
+            ${{ steps.compileDarwin.outputs.BUILT_CHECKSUM }}
