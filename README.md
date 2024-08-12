@@ -22,7 +22,11 @@
 
 ## Installation
 
-You may grab binaries from [the releases page](/releases/latest)
+### Binaries
+Binaries can be found on [the releases page](/releases/latest).
+
+### Installing through Cargo
+`cargo install --git https://github.com/marioparaschiv/define`
 
 ## Licensing
 See [LICENSE](/LICENSE).
