@@ -1,7 +1,7 @@
 ---
 
 <div align="center">
-  <h3>🔤 Define</h3>
+  <h3>🔠 Define</h3>
   <p>Define words right from your terminal.</p>
 </div>
 
